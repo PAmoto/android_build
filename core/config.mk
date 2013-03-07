@@ -88,7 +88,7 @@ SHOW_COMMANDS:= $(filter showcommands,$(MAKECMDGOALS))
 # ###############################################################
 
 # These can be changed to modify both host and device modules.
-COMMON_GLOBAL_CFLAGS:= -DANDROID -fmessage-length=0 -W -Wall -Wno-unused -Winit-self -Wpointer-arith
+COMMON_GLOBAL_CFLAGS:= -DANDROID -fmessage-length=0 -W -Wall -Wno-unused -Winit-self -Wpointer-arith -Wno-error=strict-aliasing -Wno-error=enum-compare
 COMMON_RELEASE_CFLAGS:= -DNDEBUG -UDEBUG
 
 COMMON_GLOBAL_CPPFLAGS:= $(COMMON_GLOBAL_CFLAGS) -Wsign-promo
@@ -309,10 +309,10 @@ HOST_RELEASE_CFLAGS += $(COMMON_RELEASE_CFLAGS)
 HOST_GLOBAL_CPPFLAGS += $(COMMON_GLOBAL_CPPFLAGS)
 HOST_RELEASE_CPPFLAGS += $(COMMON_RELEASE_CPPFLAGS)
 
-TARGET_GLOBAL_CFLAGS += $(COMMON_GLOBAL_CFLAGS)
+TARGET_GLOBAL_CFLAGS += $(COMMON_GLOBAL_CFLAGS) -march=armv7-a -mcpu=cortex-a8 -mtune=cortex-a8
 TARGET_RELEASE_CFLAGS += $(COMMON_RELEASE_CFLAGS)
 
-TARGET_GLOBAL_CPPFLAGS += $(COMMON_GLOBAL_CPPFLAGS)
+TARGET_GLOBAL_CPPFLAGS += $(COMMON_GLOBAL_CPPFLAGS) -march=armv7-a -mcpu=cortex-a8 -mtune=cortex-a8
 TARGET_RELEASE_CPPFLAGS += $(COMMON_RELEASE_CPPFLAGS)
 
 HOST_GLOBAL_LD_DIRS += -L$(HOST_OUT_INTERMEDIATE_LIBRARIES)
